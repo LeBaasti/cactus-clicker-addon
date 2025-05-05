@@ -15,7 +15,7 @@ Es erweitert deine Spielerfahrung in Labymod um nützliche Funktionen und ein ve
 ## 🚀 Installation
 1. Lade dir das Addon aus dem Labymod Addon-Store oder als `.jar`-Datei herunter.
 2. Öffne Labymod und gehe zu **Addons**.
-3. Wähle **Addon hinzufügen** und importiere die `.jar`-Datei.
+3. Wähle **Öffne Addon-Ordner** und importiere die `.jar`-Datei.
 4. Starte Labymod neu und verbinde dich mit dem Server.
 
 ## 🤝 Mitwirken
