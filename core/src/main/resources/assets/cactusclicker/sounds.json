@@ -1,0 +1,9 @@
+{
+  "misc.starforged": {
+    "sounds": [
+      {
+        "name": "cactusclicker:misc/starforged"
+      }
+    ]
+  }
+}

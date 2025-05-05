@@ -1,0 +1,12 @@
+{
+  "cactusclicker": {
+    "settings": {
+      "enabled": {
+        "name": "Enabled"
+      },
+      "starForgedSoundEnabled": {
+        "name": "Starforged Sound"
+      }
+    }
+  }
+}
