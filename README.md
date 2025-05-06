@@ -5,7 +5,13 @@ Dieses Addon wurde speziell für den **Cactus Clicker**-Gamemode des **PlayLegen
 Es erweitert deine Spielerfahrung in Labymod um nützliche Funktionen und ein verbessertes Gameplay! 🧩
 
 ## ⚙️ Features
-- 🔊 Belohnungs-Sound beim herstellen eines ⭐ Sterngeschmiedet-Items (Wird abgespielt, wenn es im Zerlegen-Menü gefunden wird)
+- 🔊 Belohnungs-Sound beim Herstellen eines ⭐ Sterngeschmiedet-Items  
+  (wird abgespielt, wenn das Item im Zerlegen-Menü erscheint)
+
+## 🛠️ Geplante Features
+- 🧩 Übertragung des Widget-Systems vom Spielmodus (Tablist) in das native Labymod-Widget-System
+- 🪵 Anzeige der **Materialien-Drops** aus der aktuellen Session
+- 🔥 Anzeige der **aktuellen Kombo** und ein **Countdown**, bis sich die Kombo zurücksetzt
 
 ## 💡 Voraussetzungen
 - 🧱 Minecraft mit Labymod
