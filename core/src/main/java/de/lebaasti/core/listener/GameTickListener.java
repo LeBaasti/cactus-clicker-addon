@@ -5,9 +5,9 @@ import net.labymod.api.Laby;
 import net.labymod.api.client.resources.ResourceLocation;
 import net.labymod.api.event.Phase;
 import net.labymod.api.event.Subscribe;
-import net.labymod.api.event.client.gui.hud.HudWidgetUpdateRequestEvent;
 import net.labymod.api.event.client.lifecycle.GameTickEvent;
 import de.lebaasti.core.CactusClickerAddon;
+import java.util.Objects;
 
 public class GameTickListener {
 

@@ -7,6 +7,19 @@
       "starForgedSoundEnabled": {
         "name": "Starforged Sound"
       }
+    },
+    "hudWidget": {
+      "materials_widget": {
+        "name": "Materials"
+      }
+    }
+  },
+  "labymod": {
+    "hudWidgetCategory": {
+      "cactus_clicker_category": {
+        "name": "Cactus Clicker",
+        "description": "Additional information Widgets"
+      }
     }
   }
 }
