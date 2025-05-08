@@ -49,6 +49,10 @@ public class TablistEventDispatcher {
       for (Consumer<PlayerInfoUpdateEvent> listener : listeners) {
         listener.accept(event);
       }
+    } else if (event.type() == UpdateType.UPDATE_LISTED) {
+      if(event.playerInfo().isListed()) {
+        playerList.add(event.playerInfo());
+      }
     }
   }
 
