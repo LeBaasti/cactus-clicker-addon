@@ -13,6 +13,9 @@ Es erweitert deine Spielerfahrung in Labymod um nützliche Funktionen und ein ve
 ## 🛠️ Geplante Features
 - 🧩 Übertragung des Widget-Systems vom Spielmodus (Tablist) in das native Labymod-Widget-System
 - 🔥 Anzeige der **aktuellen Kombo** und ein **Countdown**, bis sich die Kombo zurücksetzt
+- 😀 Menü zum Einfügen von Emojis
+- ❌ Deaktivieren der Kombo-Kiste-Anzeige
+- 🗒️ Übersicht aller Statuen, wenn das Menü geöffnet ist
 
 ## 💡 Voraussetzungen
 - 🧱 Minecraft mit Labymod
