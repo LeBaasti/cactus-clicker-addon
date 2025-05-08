@@ -6,6 +6,7 @@ import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.network.NetworkPlayerInfo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class TablistHudWidget extends TextHudWidget<TextHudWidgetConfig> {
 
@@ -28,8 +29,21 @@ public abstract class TablistHudWidget extends TextHudWidget<TextHudWidgetConfig
     });
   }
 
+  protected String translationKey(String key) {
+    return String.format(
+        Locale.ROOT, "%s.hudWidget.%s.%s",
+        this.namespace,
+        id,
+        key
+    );
+  }
+
+  public String replaceColorCodes(String text) {
+    return text.replaceAll("§[0-9A-Fa-f]", "");
+  }
+
   public String clearText(String text) {
-    return text.replaceAll("§[0-9A-Fa-f]", "").replaceAll("[^a-zA-Z\\s]", "");
+    return replaceColorCodes(text).replaceAll("[^a-zA-Z\\s]", "");
   }
 
   protected abstract String germanNameText();

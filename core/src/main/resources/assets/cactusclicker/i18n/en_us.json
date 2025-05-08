@@ -12,6 +12,10 @@
       "materials_widget": {
         "name": "Materials"
       },
+      "power_crystal_widget": {
+        "name": "Powercrystals",
+        "level": "Level %s"
+      },
       "anvil_widget": {
         "name": "Anvil"
       }
