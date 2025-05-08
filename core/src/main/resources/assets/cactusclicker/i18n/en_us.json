@@ -11,6 +11,9 @@
     "hudWidget": {
       "materials_widget": {
         "name": "Materials"
+      },
+      "anvil_widget": {
+        "name": "Anvil"
       }
     }
   },

@@ -3,11 +3,13 @@ package de.lebaasti.core;
 import de.lebaasti.core.generated.DefaultReferenceStorage;
 import de.lebaasti.core.listener.GameTickListener;
 import de.lebaasti.core.widgets.ingame.MaterialsWidget;
+import de.lebaasti.core.widgets.ingame.tablist.AnvilWidet;
+import de.lebaasti.core.widgets.ingame.tablist.PowerCrystalWidget;
+import de.lebaasti.core.widgets.ingame.tablist.util.TablistEventDispatcher;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.gui.hud.binding.category.HudWidgetCategory;
 import net.labymod.api.client.gui.hud.hudwidget.HudWidget;
 import net.labymod.api.models.addon.annotation.AddonMain;
-import org.jetbrains.annotations.NotNull;
 
 @AddonMain
 public class CactusClickerAddon extends LabyAddon<AddonConfiguration> {
@@ -26,6 +28,12 @@ public class CactusClickerAddon extends LabyAddon<AddonConfiguration> {
     inventoryReader = ((DefaultReferenceStorage) this.referenceStorageAccessor()).inventoryReader();
 
     this.registerListener(new GameTickListener(this));
+
+    TablistEventDispatcher dispatcher = new TablistEventDispatcher(this);
+    this.registerListener(dispatcher);
+
+    labyAPI().hudWidgetRegistry().register(new PowerCrystalWidget(dispatcher));
+    labyAPI().hudWidgetRegistry().register(new AnvilWidet(dispatcher));
   }
 
   @Override

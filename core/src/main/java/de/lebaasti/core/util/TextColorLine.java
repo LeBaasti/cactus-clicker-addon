@@ -1,5 +1,6 @@
 package de.lebaasti.core.util;
 
+import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.TextComponent;
 import net.labymod.api.client.component.format.TextColor;
@@ -16,6 +17,7 @@ import java.util.Objects;
 public class TextColorLine extends TextLine {
 
   protected Object lastKey;
+  private boolean customLabelColor = false;
 
   public TextColorLine(TextHudWidget<?> hudWidget, Component key, Object value) {
     super(hudWidget, key, value);
@@ -26,6 +28,13 @@ public class TextColorLine extends TextLine {
     TextHudWidgetConfig config = this.hudWidget.getConfig();
 
     TextColor bracketColor = TextColor.color(config.bracketColor().get().get());
+    TextColor labelColor = customLabelColor
+        ? this.keyComponent.getColor()
+        : TextColor.color(config.labelColor().get().get());
+    TextColor valueColor = TextColor.color(config.valueColor().get().get());
+
+    Component keyComponent = this.updateColor(this.keyComponent, labelColor);
+    Component valueComponent = this.updateColor(this.valueComponent, valueColor);
 
     Formatting formatting = config.formatting().get();
     Component componentLine = formatting.build(
@@ -46,16 +55,30 @@ public class TextColorLine extends TextLine {
     }
 
     this.lastKey = key;
-    this.valueComponent = key instanceof Component
-        ? (Component) key
-        : this.keyComponent instanceof TextComponent keyTextComponent
-        ? keyTextComponent.text(String.valueOf(key))
-        : Component.text(String.valueOf(key));
+    if(this.keyComponent instanceof TextComponent keyTextComponent) {
+      if(key instanceof TextComponent textComponent) {
+        keyTextComponent.text(textComponent.getText());
+        if(customLabelColor) keyTextComponent.color(textComponent.getColor());
+      } else {
+        keyTextComponent.text(String.valueOf(key));
+      }
+    }
     return true;
   }
 
-  public void updateAndFlushKeyAndValue(Object key, Object value) {
-    if (this.updateKey(key) || this.update(value)) {
+  public boolean updateAndFlushKey(Object key) {
+    if (this.updateKey(key)) {
+      this.flushInternal();
+      return true;
+    }
+    return false;
+  }
+
+  public void updateAndFlushKeyAndValue(Object key, Object value, boolean customLabelColor) {
+    this.customLabelColor = customLabelColor;
+    boolean keyUpdated = this.updateKey(key);
+    boolean valueUpdated = this.update(value);
+    if (keyUpdated || valueUpdated) {
       this.flushInternal();
     }
   }

@@ -24,7 +24,8 @@ public class VersionedInventoryReader implements InventoryReader {
       return false;
     }
     AbstractContainerMenu menu = currentInventory.getMenu();
-    for (int i = 0; i < menu.slots.size(); i++) {
+    int playerSlotStartIndex = menu.slots.size() - 36; // 27 inventory + 9 hotbar
+    for (int i = 0; i < playerSlotStartIndex; i++) {
       Slot slot = menu.slots.get(i);
       ItemStack stack = slot.getItem();
 

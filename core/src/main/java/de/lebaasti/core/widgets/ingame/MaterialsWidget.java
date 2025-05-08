@@ -1,6 +1,7 @@
 package de.lebaasti.core.widgets.ingame;
 
 import de.lebaasti.core.CactusClickerAddon;
+import de.lebaasti.core.util.CactusClickerPlayer;
 import de.lebaasti.core.util.TextColorLine;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.TextComponent;
@@ -56,7 +57,7 @@ public class MaterialsWidget extends TextHudWidget<TextHudWidgetConfig> {
         MaterialRarity rarity = MaterialRarity.findByColorCode(materialName.getColor().getValue());
         if(rarity != null) {
           TextColorLine textColorLine = textLines.get(rarity);
-          textColorLine.updateAndFlushKeyAndValue(materialName.getText(), materialAmount);
+          textColorLine.updateAndFlushKeyAndValue(materialName, materialAmount, true);
           textColorLine.setState(State.VISIBLE);
         }
       }
@@ -65,8 +66,7 @@ public class MaterialsWidget extends TextHudWidget<TextHudWidgetConfig> {
 
   @Subscribe
   public void onSubServerSwitch(SubServerSwitchEvent event) {
-    String path = labyAPI.minecraft().clientWorld().dimension().getPath();
-    if(!path.startsWith("floor")) {
+    if(!CactusClickerPlayer.isInAincraft()) {
       for (Map.Entry<MaterialRarity, TextColorLine> entry : textLines.entrySet()) {
         entry.getValue().setState(State.HIDDEN);
       }
