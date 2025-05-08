@@ -7,7 +7,7 @@ Es erweitert deine Spielerfahrung in Labymod um nützliche Funktionen und ein ve
 ## ⚙️ Features
 - 🔊 Belohnungs-Sound beim Herstellen eines ⭐ Sterngeschmiedet-Items  
   (wird abgespielt, wenn das Item im Zerlegen-Menü erscheint)
-- 🪵 Anzeige der **Materialien-Drops** aus der aktuellen Session
+- 🪵 Anzeige der **Materialien-Drops** aus der aktuellen Session (LabyMod -> Widgets)
 
 ## 🛠️ Geplante Features
 - 🧩 Übertragung des Widget-Systems vom Spielmodus (Tablist) in das native Labymod-Widget-System
