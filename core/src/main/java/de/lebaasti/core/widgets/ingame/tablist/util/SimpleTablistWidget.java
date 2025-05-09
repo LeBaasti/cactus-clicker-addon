@@ -40,8 +40,6 @@ public abstract class SimpleTablistWidget extends TablistHudWidget {
     NetworkPlayerInfo value = playerList.get(valueIndex);
     values.clear();
     values.add(value);
-    onWidgetValueUpdate(value);
-
     textLine.setState(State.VISIBLE);
   }
 

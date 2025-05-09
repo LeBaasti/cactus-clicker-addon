@@ -18,13 +18,16 @@ public abstract class TablistHudWidget extends TextHudWidget<TextHudWidgetConfig
     super(id);
     this.bindCategory(dispatcher.addon().widgetCategory());
     this.dispatcher = dispatcher;
-    dispatcher.register(event -> {
-      NetworkPlayerInfo playerInfo = event.playerInfo();
-      String text = ((TextComponent) playerInfo.displayName()).getText();
-      if(text.contains(germanNameText()) || text.contains(englishNameText())) {
-        onWidgetKeyUpdate(playerInfo);
-      } else if(values.contains(playerInfo)) {
-        onWidgetValueUpdate(playerInfo);
+    dispatcher.register(playerInfo -> {
+      if(playerInfo != null) {
+        String text = ((TextComponent) playerInfo.displayName()).getText();
+        if(text.contains(germanNameText()) || text.contains(englishNameText())) {
+          onWidgetKeyUpdate(playerInfo);
+        } else if(values.contains(playerInfo)) {
+          onWidgetValueUpdate(playerInfo);
+        }
+      } else {
+        onWidgetReset();
       }
     });
   }
@@ -50,4 +53,5 @@ public abstract class TablistHudWidget extends TextHudWidget<TextHudWidgetConfig
   protected abstract String englishNameText();
   protected abstract void onWidgetKeyUpdate(NetworkPlayerInfo playerInfo);
   protected abstract void onWidgetValueUpdate(NetworkPlayerInfo playerInfo);
+  protected void onWidgetReset() {}
 }
