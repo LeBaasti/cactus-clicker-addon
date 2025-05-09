@@ -1,5 +1,6 @@
 package de.lebaasti.core.widgets.ingame.tablist;
 
+import de.lebaasti.core.util.TextColorLine;
 import de.lebaasti.core.widgets.ingame.tablist.util.TablistEventDispatcher;
 import de.lebaasti.core.widgets.ingame.tablist.util.TablistHudWidget;
 import net.labymod.api.client.component.Component;
@@ -7,13 +8,16 @@ import net.labymod.api.client.component.TextComponent;
 import net.labymod.api.client.component.format.TextColor;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
+import net.labymod.api.client.gui.hud.hudwidget.text.TextLine.State;
 import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.client.network.NetworkPlayerInfo;
 import net.labymod.api.client.resources.ResourceLocation;
-import net.labymod.api.event.Subscribe;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PowerCrystalWidget extends TablistHudWidget {
+
+  private final List<NetworkPlayerInfo> keys = new ArrayList<>();
 
   public PowerCrystalWidget(TablistEventDispatcher dispatcher) {
     super("power_crystal_widget", dispatcher);
@@ -33,22 +37,31 @@ public class PowerCrystalWidget extends TablistHudWidget {
   @Override
   public void load(TextHudWidgetConfig config) {
     super.load(config);
-    lines.clear();
+    keys.clear();
     values.clear();
+    createLine(Component.translatable(translationKey("name")), Component.text("")).setState(State.HIDDEN);
   }
 
   @Override
   protected void onWidgetKeyUpdate(NetworkPlayerInfo playerInfo) {
-    List<NetworkPlayerInfo> playerList = dispatcher.playerList();
-    int keyIndex = playerList.indexOf(playerInfo);
-    int valueIndex = keyIndex + 1;
-    if(valueIndex >= playerList.size()) return;
-
     TextComponent key = (TextComponent) playerInfo.displayName();
-    createLine(Component.text(clearText(key.getText())), Component.text(""));
+    Component keyComponent = Component.text(clearText(key.getText()));
+    if(!keys.contains(playerInfo)) {
+      List<NetworkPlayerInfo> playerList = dispatcher.playerList();
+      int keyIndex = playerList.indexOf(playerInfo);
+      int valueIndex = keyIndex + 1;
+      if(valueIndex >= playerList.size()) return;
 
-    NetworkPlayerInfo value = playerList.get(valueIndex);
-    values.add(value);
+      createLine(keyComponent, Component.text(""), TextColorLine::new);
+
+      NetworkPlayerInfo value = playerList.get(valueIndex);
+      keys.add(playerInfo);
+      values.add(value);
+    } else {
+      int powerCrystalIndex = keys.indexOf(playerInfo);
+      TextColorLine powerCrystalLine = (TextColorLine) lines.get(powerCrystalIndex);
+      powerCrystalLine.updateAndFlushKey(keyComponent);
+    }
   }
 
   @Override
@@ -56,8 +69,9 @@ public class PowerCrystalWidget extends TablistHudWidget {
     TextComponent valueComponent = (TextComponent) playerInfo.displayName();
     int powerCrystalIndex = values.indexOf(playerInfo);
     if(valueComponent.getText().isBlank()) {
-      lines.remove(powerCrystalIndex);
+      keys.remove(powerCrystalIndex);
       values.remove(playerInfo);
+      lines.remove(powerCrystalIndex);
       return;
     }
     TextLine powerCrystalLine = lines.get(powerCrystalIndex);
@@ -78,8 +92,9 @@ public class PowerCrystalWidget extends TablistHudWidget {
 
   @Override
   protected void onWidgetReset() {
-    lines.clear();
+    keys.clear();
     values.clear();
+    lines.clear();
   }
 
   private final long[] XP_TABLE = {
