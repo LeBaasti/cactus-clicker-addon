@@ -23,7 +23,7 @@ public class DisableDropAnimationFeature {
     if(title != null && title.getTitle() != null) {
       String titleText = ((TextComponent) title.getTitle()).getText();
       //Legendary and epic animation symbols
-      boolean isAnimation = titleText.matches(".*[㥆-㥬㥮-㦕].*");
+      boolean isAnimation = titleText.matches(".*[㥆-㥭㥮-㦕].*");
       if(isAnimation) event.setCancelled(true);
     }
   }
