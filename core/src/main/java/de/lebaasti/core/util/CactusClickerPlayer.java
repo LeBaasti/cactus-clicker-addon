@@ -2,6 +2,7 @@ package de.lebaasti.core.util;
 
 import net.labymod.api.Laby;
 import net.labymod.api.LabyAPI;
+import net.labymod.api.client.resources.ResourceLocation;
 
 public class CactusClickerPlayer {
 
@@ -11,7 +12,11 @@ public class CactusClickerPlayer {
   }
 
   public static boolean isInAincraft() {
-    return Laby.labyAPI().minecraft().clientWorld().dimension().getPath().startsWith("floor");
+    return isInAincraft(Laby.labyAPI().minecraft().clientWorld().dimension());
+  }
+
+  public static boolean isInAincraft(ResourceLocation resourceLocation) {
+    return resourceLocation.getPath().startsWith("floor");
   }
 
 }

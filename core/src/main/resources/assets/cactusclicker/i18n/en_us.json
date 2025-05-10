@@ -6,11 +6,22 @@
       },
       "starForgedSoundEnabled": {
         "name": "Starforged Sound"
+      },
+      "legendaryAndEpicAnimationEnabled": {
+        "name": "Legendary/Epic Animation",
+        "description": "Whether the standard animation is played for a legendary or epic drop"
+      },
+      "comboChestEnabled": {
+        "name": "Combo Chest",
+        "description": "Whether the combo box is displayed"
       }
     },
     "hudWidget": {
       "materials_widget": {
         "name": "Materials"
+      },
+      "combo_chest_widget": {
+        "name": "Combo Chest"
       },
       "power_crystal_widget": {
         "name": "Powercrystals",

@@ -1,7 +1,10 @@
 package de.lebaasti.core;
 
+import de.lebaasti.core.feature.DisableComboChestFeature;
+import de.lebaasti.core.feature.DisableDropAnimationFeature;
 import de.lebaasti.core.generated.DefaultReferenceStorage;
 import de.lebaasti.core.listener.GameTickListener;
+import de.lebaasti.core.widgets.ingame.ComboChestWidget;
 import de.lebaasti.core.widgets.ingame.MaterialsWidget;
 import de.lebaasti.core.widgets.ingame.tablist.AnvilWidet;
 import de.lebaasti.core.widgets.ingame.tablist.PowerCrystalWidget;
@@ -24,10 +27,13 @@ public class CactusClickerAddon extends LabyAddon<AddonConfiguration> {
 
     labyAPI().hudWidgetRegistry().categoryRegistry().register(this.widgetCategory = new HudWidgetCategory("cactus_clicker_category"));
     registerHudWidgetWithListener(new MaterialsWidget(this));
+    registerHudWidgetWithListener(new ComboChestWidget(this));
 
     inventoryReader = ((DefaultReferenceStorage) this.referenceStorageAccessor()).inventoryReader();
 
     this.registerListener(new GameTickListener(this));
+    this.registerListener(new DisableDropAnimationFeature(this));
+    this.registerListener(new DisableComboChestFeature(this));
 
     TablistEventDispatcher dispatcher = new TablistEventDispatcher(this);
     this.registerListener(dispatcher);
