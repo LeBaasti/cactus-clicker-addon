@@ -2,6 +2,7 @@ package de.lebaasti.core.feature;
 
 import de.lebaasti.core.CactusClickerAddon;
 import de.lebaasti.core.event.TitleReceiveEvent;
+import de.lebaasti.core.util.FontGlyphRegistry;
 import net.labymod.api.client.chat.Title;
 import net.labymod.api.client.component.TextComponent;
 import net.labymod.api.event.Subscribe;
@@ -23,7 +24,7 @@ public class DisableDropAnimationFeature {
     if(title != null && title.getTitle() != null) {
       String titleText = ((TextComponent) title.getTitle()).getText();
       //Legendary and epic animation symbols
-      boolean isAnimation = titleText.matches(".*[㥆-㥭㥮-㦕].*");
+      boolean isAnimation = FontGlyphRegistry.containsCharInGroup("cactusclicker_drop_animation", titleText);
       if(isAnimation) event.setCancelled(true);
     }
   }

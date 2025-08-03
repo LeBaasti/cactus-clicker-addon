@@ -44,6 +44,7 @@ public class MaterialsWidget extends TextHudWidget<TextHudWidgetConfig> {
 
   @Subscribe
   public void onActionBarReceive(ActionBarReceiveEvent event) {
+    if(!isEnabled()) return;
     if (event.phase() != Phase.PRE) {
       return;
     }
@@ -66,6 +67,7 @@ public class MaterialsWidget extends TextHudWidget<TextHudWidgetConfig> {
 
   @Subscribe
   public void onSubServerSwitch(SubServerSwitchEvent event) {
+    if(!isEnabled()) return;
     if(!CactusClickerPlayer.isInAincraft()) {
       for (Map.Entry<MaterialRarity, TextColorLine> entry : textLines.entrySet()) {
         entry.getValue().setState(State.HIDDEN);

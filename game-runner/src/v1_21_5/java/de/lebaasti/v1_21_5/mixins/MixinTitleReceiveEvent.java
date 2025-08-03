@@ -1,4 +1,4 @@
-package de.lebaasti.v1_20_1.mixins;
+package de.lebaasti.v1_21_5.mixins;
 
 import de.lebaasti.core.event.TitleReceiveEvent;
 import net.labymod.api.Laby;

@@ -5,6 +5,8 @@ import de.lebaasti.core.event.BossbarRenderEvent;
 import de.lebaasti.core.util.CactusClickerPlayer;
 import de.lebaasti.core.util.FontGlyphRegistry;
 import net.labymod.api.client.component.Component;
+import net.labymod.api.client.component.TextComponent;
+import net.labymod.api.client.gui.hud.hudwidget.text.Formatting;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
@@ -12,14 +14,16 @@ import net.labymod.api.client.gui.hud.hudwidget.text.TextLine.State;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.world.DimensionChangeEvent;
 import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-public class ComboChestWidget extends TextHudWidget<TextHudWidgetConfig> {
+public class AbilitiesWidget extends TextHudWidget<TextHudWidgetConfig> {
 
   private TextLine textLine;
   private CactusClickerAddon addon;
 
-  public ComboChestWidget(CactusClickerAddon addon) {
-    super("combo_chest_widget");
+  public AbilitiesWidget(CactusClickerAddon addon) {
+    super("abilities_widget");
     this.addon = addon;
     this.bindCategory(addon.widgetCategory());
   }
@@ -27,7 +31,8 @@ public class ComboChestWidget extends TextHudWidget<TextHudWidgetConfig> {
   @Override
   public void load(TextHudWidgetConfig config) {
     super.load(config);
-    textLine = createLine(Component.translatable("cactusclicker.hudWidget." + id + ".name"), "");
+    textLine = createLine(Component.translatable("cactusclicker.hudWidget." + id + ".name"),
+        Component.translatable("cactusclicker.hudWidget." + id + ".name"));
     textLine.setState(State.HIDDEN);
   }
 
@@ -35,32 +40,33 @@ public class ComboChestWidget extends TextHudWidget<TextHudWidgetConfig> {
   public void onBossbarRender(BossbarRenderEvent event) {
     if(!isEnabled()) return;
     String componentText = event.getComponent().toString();
-    if(FontGlyphRegistry.containsCharInGroupName("combo_chest", "numbers", componentText)) {
-      try {
-        textLine.updateAndFlush(decodeNumber(componentText));
-      } catch (NumberFormatException exception) {
-      }
+    String value = extractAbilitySymbols(componentText);
+    if(!value.isEmpty()) {
+      textLine.updateAndFlush(value);
+      event.setCancelled(true);
     }
   }
 
   @Subscribe
   public void onDimensionChange(DimensionChangeEvent event) {
     if(!isEnabled()) return;
-    if(CactusClickerPlayer.isInAincraft(event.toDimension())) {
+    if(CactusClickerPlayer.isInAincraft(event.toDimension()) || CactusClickerPlayer.isInFabric(event.toDimension())) {
       textLine.setState(State.VISIBLE);
     } else {
       textLine.setState(State.HIDDEN);
     }
   }
 
-  private int decodeNumber(String input) throws NumberFormatException {
-    StringBuilder result = new StringBuilder();
-    LinkedHashSet<String> numbers = FontGlyphRegistry.getCharsForGroupName("combo_chest", "numbers");
-    for (char c : input.toCharArray()) {
-      if (c >= (numbers.getFirst().charAt(0)) && c <= (numbers.getLast().charAt(0))) {
-        result.append(c - numbers.getFirst().charAt(0));
-      }
-    }
-    return Integer.parseInt(result.toString());
+  public String extractAbilitySymbols(String text) {
+    Set<String> validSymbols = FontGlyphRegistry.getAllCharsForGroup("cactusclicker_classes_icons")
+        .stream()
+        .flatMap(Set::stream)
+        .collect(Collectors.toSet());
+
+    return text.codePoints()
+        .mapToObj(cp -> new String(Character.toChars(cp)))
+        .filter(validSymbols::contains)
+        .collect(Collectors.joining());
   }
+
 }

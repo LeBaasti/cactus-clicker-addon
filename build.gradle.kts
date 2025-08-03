@@ -27,7 +27,7 @@ labyMod {
         displayName = "Cactus Clicker Addon"
         author = "LeBaasti"
         description = "Labymod addon for cactus clicker game mode of Playlegend server network."
-        minecraftVersion = "1.20.1"
+        minecraftVersion = "1.21.5"
         version = rootProject.version.toString()
     }
 }

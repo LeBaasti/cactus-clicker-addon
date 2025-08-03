@@ -1,4 +1,4 @@
-package de.lebaasti.v1_20_1.mixins;
+package de.lebaasti.v1_21_5.mixins;
 
 
 import de.lebaasti.core.event.BossbarRenderEvent;
@@ -8,6 +8,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.BossHealthOverlay;
 import net.minecraft.client.gui.components.LerpingBossEvent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.profiling.Profiler;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.BossEvent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,7 +27,7 @@ public abstract class MixinBossHealthOverlay {
 
   @Shadow
   @Final
-  private Map<UUID, LerpingBossEvent> events;
+  Map<UUID, LerpingBossEvent> events;
 
   @Shadow
   @Final
@@ -37,36 +39,45 @@ public abstract class MixinBossHealthOverlay {
   @Inject(method = "render", at = @At(value = "HEAD"), cancellable = true)
   private void onRender(GuiGraphics $$0, CallbackInfo callbackInfo) {
     if (!this.events.isEmpty()) {
-      int $$1 = $$0.guiWidth();
-      int $$2 = 12;
-      Iterator var4 = this.events.values().iterator();
+      ProfilerFiller $$1 = Profiler.get();
+      $$1.push("bossHealth");
+      int $$2 = $$0.guiWidth();
+      int $$3 = 12;
+      Iterator var5 = this.events.values().iterator();
 
-      while(var4.hasNext()) {
-        LerpingBossEvent $$3 = (LerpingBossEvent)var4.next();
+      while(var5.hasNext()) {
+        LerpingBossEvent $$4 = (LerpingBossEvent)var5.next();
 
-        Component bossBarText = $$3.getName();
+        //INJECTION CODE - START
+        Component bossBarText = $$4.getName();
         BossbarRenderEvent event = new BossbarRenderEvent(net.labymod.api.client.component.Component.text(bossBarText));
         Laby.fireEvent(event);
         if(event.isCancelled()) {
           continue;
         }
+        //INJECTION CODE - END
 
-        int $$4 = $$1 / 2 - 91;
-        int $$5 = $$2;
-        this.drawBar($$0, $$4, $$5, $$3);
-
-        int $$7 = this.minecraft.font.width(bossBarText);
-        int $$8 = $$1 / 2 - $$7 / 2;
-        int $$9 = $$5 - 9;
-        $$0.drawString(this.minecraft.font, bossBarText, $$8, $$9, 16777215);
+        int $$5 = $$2 / 2 - 91;
+        int $$6 = $$3;
+        this.drawBar($$0, $$5, $$6, $$4);
+        Component $$7 = $$4.getName();
+        int $$8 = this.minecraft.font.width($$7);
+        int $$9 = $$2 / 2 - $$8 / 2;
+        int $$10 = $$6 - 9;
+        $$0.drawString(this.minecraft.font, $$7, $$9, $$10, 16777215);
         Objects.requireNonNull(this.minecraft.font);
-        $$2 += 10 + 9;
-        if ($$2 >= $$0.guiHeight() / 3) {
+        $$3 += 10 + 9;
+        if ($$3 >= $$0.guiHeight() / 3) {
           break;
         }
       }
+
+      $$1.pop();
+
+      //INJECTION CODE (return function) - START
+      callbackInfo.cancel();
+      //INJECTION CODE - END
     }
-    callbackInfo.cancel();
   }
 
 }

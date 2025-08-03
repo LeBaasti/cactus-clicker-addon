@@ -7,8 +7,11 @@ import net.labymod.api.client.resources.ResourceLocation;
 public class CactusClickerPlayer {
 
   public static boolean isInFabric() {
-    LabyAPI labyAPI = Laby.labyAPI();
-    return labyAPI.minecraft().clientWorld().dimension().getPath().equalsIgnoreCase(labyAPI.getName());
+    return isInFabric(Laby.labyAPI().minecraft().clientWorld().dimension());
+  }
+
+  public static boolean isInFabric(ResourceLocation resourceLocation) {
+    return resourceLocation.getPath().equalsIgnoreCase(Laby.labyAPI().getName());
   }
 
   public static boolean isInAincraft() {

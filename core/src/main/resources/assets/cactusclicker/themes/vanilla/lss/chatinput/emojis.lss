@@ -1,0 +1,58 @@
+.window {
+  width: 200;
+  height: 50%;
+  bottom: 1;
+  right: 1;
+  height-precision: 12;
+
+  background-color: rgba(10, 10, 10, 100);
+
+  .title-bar {
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 14;
+    background-color: rgba(10, 10, 10, 100);
+
+    .title {
+      left: 2;
+      top: 2;
+    }
+  }
+
+    Scroll {
+      width: 100%;
+      height: 100%;
+      scrollSpeed: 20;
+
+      .gridWidget {
+        top: 0;
+        left: 0;
+        height: fit-content;
+        tiles-per-line: 9;
+        space-between-entries: 0;
+        width: 100%;
+      }
+
+      Scrollbar {
+        left: 0;
+        top: 0;
+        width: 5;
+        height: 100%;
+        margin-left: 5;
+        scrollSpeed: 20;
+      }
+    }
+}
+
+Emoji {
+  width: 16;
+  height: 16;
+  clickable: true;
+  .emojiIcon {
+    alignment-x: center;
+    alignment-y: center;
+    left: 50%;
+    top: 50%;
+  }
+}

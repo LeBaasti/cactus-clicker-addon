@@ -1,4 +1,4 @@
-package de.lebaasti.v1_20_1;
+package de.lebaasti.v1_21_5;
 
 import de.lebaasti.core.InventoryReader;
 import net.labymod.api.models.Implements;

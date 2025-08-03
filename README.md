@@ -9,16 +9,19 @@ Es erweitert deine Spielerfahrung in Labymod um nützliche Funktionen und ein ve
   (wird abgespielt, wenn das Item im Zerlegen-Menü erscheint)
 - 🪵 Anzeige der **Materialien-Drops** aus der aktuellen Session (LabyMod -> Widgets)
 - 💎 Machtkristall-Widget (Mit Levelanzeige)
+- ❌ Deaktivieren der Kombo-Kiste-Anzeige
+- 🔥 Anzeige der **aktuellen Kombo**
+- 😀 Menü zum Einfügen von Emojis
+- 🎯 Verschiebbare Anzeige der Klassen-Fähigkeiten (Tasten)
 
 ## 🛠️ Geplante Features
 - 🧩 Übertragung des Widget-Systems vom Spielmodus (Tablist) in das native Labymod-Widget-System
-- 🔥 Anzeige der **aktuellen Kombo** und ein **Countdown**, bis sich die Kombo zurücksetzt
-- 😀 Menü zum Einfügen von Emojis
-- ❌ Deaktivieren der Kombo-Kiste-Anzeige
+- 🔥 Anzeige eines **Countdown**, bis sich die **aktuellen Kombo** zurücksetzt
 - 🗒️ Übersicht aller Statuen, wenn das Menü geöffnet ist
+- 🔄️ Live-Anzeige im Equipment-Editor
 
 ## 💡 Voraussetzungen
-- 🧱 Minecraft mit Labymod
+- 🧱 Minecraft mit Labymod (Version 1.21.5)
 - 🌐 Verbindung zum PlayLegend-Server: `playlegend.net`
 - ✅ Aktiviertes Cactus Clicker Addon
 

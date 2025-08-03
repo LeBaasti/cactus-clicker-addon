@@ -17,6 +17,9 @@
       }
     },
     "hudWidget": {
+      "abilities_widget": {
+        "name": "Abilities"
+      },
       "materials_widget": {
         "name": "Materials"
       },
@@ -33,6 +36,13 @@
     }
   },
   "labymod": {
+    "chatInput": {
+      "tab": {
+        "emojis": {
+          "name": "Emojis"
+        }
+      }
+    },
     "hudWidgetCategory": {
       "cactus_clicker_category": {
         "name": "Cactus Clicker",

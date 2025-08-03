@@ -2,8 +2,12 @@ package de.lebaasti.core;
 
 import de.lebaasti.core.feature.DisableComboChestFeature;
 import de.lebaasti.core.feature.DisableDropAnimationFeature;
+import de.lebaasti.core.feature.emoji.EmojiActivity;
 import de.lebaasti.core.generated.DefaultReferenceStorage;
+import de.lebaasti.core.listener.ChatMessageSendListener;
 import de.lebaasti.core.listener.GameTickListener;
+import de.lebaasti.core.listener.ResourceReloadListener;
+import de.lebaasti.core.widgets.ingame.AbilitiesWidget;
 import de.lebaasti.core.widgets.ingame.ComboChestWidget;
 import de.lebaasti.core.widgets.ingame.MaterialsWidget;
 import de.lebaasti.core.widgets.ingame.tablist.AnvilWidet;
@@ -12,6 +16,9 @@ import de.lebaasti.core.widgets.ingame.tablist.util.TablistEventDispatcher;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.gui.hud.binding.category.HudWidgetCategory;
 import net.labymod.api.client.gui.hud.hudwidget.HudWidget;
+import net.labymod.api.client.gui.icon.Icon;
+import net.labymod.api.client.gui.screen.widget.widgets.activity.chat.ChatButtonWidget;
+import net.labymod.api.client.resources.ResourceLocation;
 import net.labymod.api.models.addon.annotation.AddonMain;
 
 @AddonMain
@@ -25,13 +32,18 @@ public class CactusClickerAddon extends LabyAddon<AddonConfiguration> {
   protected void enable() {
     this.registerSettingCategory();
 
+    labyAPI().chatProvider().chatInputService().register(getEmojiWidget());
+
     labyAPI().hudWidgetRegistry().categoryRegistry().register(this.widgetCategory = new HudWidgetCategory("cactus_clicker_category"));
     registerHudWidgetWithListener(new MaterialsWidget(this));
     registerHudWidgetWithListener(new ComboChestWidget(this));
+    registerHudWidgetWithListener(new AbilitiesWidget(this));
 
     inventoryReader = ((DefaultReferenceStorage) this.referenceStorageAccessor()).inventoryReader();
 
+    this.registerListener(new ChatMessageSendListener());
     this.registerListener(new GameTickListener(this));
+    this.registerListener(new ResourceReloadListener(this));
     this.registerListener(new DisableDropAnimationFeature(this));
     this.registerListener(new DisableComboChestFeature(this));
 
@@ -58,5 +70,10 @@ public class CactusClickerAddon extends LabyAddon<AddonConfiguration> {
   public void registerHudWidgetWithListener(HudWidget<?> widget) {
     labyAPI().hudWidgetRegistry().register(widget);
     registerListener(widget);
+  }
+
+  public static ChatButtonWidget getEmojiWidget() {
+    ResourceLocation resourceLocation = ResourceLocation.create("cactusclicker", "buttons/emoji_button.png");
+    return ChatButtonWidget.icon("emojis", Icon.texture(resourceLocation), EmojiActivity::new);
   }
 }
