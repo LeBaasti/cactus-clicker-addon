@@ -4,8 +4,8 @@ import de.lebaasti.core.CactusClickerAddon;
 import de.lebaasti.core.event.BossbarRenderEvent;
 import de.lebaasti.core.util.CactusClickerPlayer;
 import de.lebaasti.core.util.FontGlyphRegistry;
+import de.lebaasti.core.widgets.ingame.util.OnlyValueHudWidgetConfig;
 import net.labymod.api.client.component.Component;
-import net.labymod.api.client.component.TextComponent;
 import net.labymod.api.client.gui.hud.hudwidget.text.Formatting;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
@@ -13,27 +13,25 @@ import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine.State;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.world.DimensionChangeEvent;
-import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class AbilitiesWidget extends TextHudWidget<TextHudWidgetConfig> {
+public class AbilitiesWidget extends TextHudWidget<OnlyValueHudWidgetConfig> {
 
   private TextLine textLine;
   private CactusClickerAddon addon;
 
   public AbilitiesWidget(CactusClickerAddon addon) {
-    super("abilities_widget");
+    super("abilities_widget", OnlyValueHudWidgetConfig.class);
     this.addon = addon;
     this.bindCategory(addon.widgetCategory());
   }
 
   @Override
-  public void load(TextHudWidgetConfig config) {
+  public void load(OnlyValueHudWidgetConfig config) {
     super.load(config);
     textLine = createLine(Component.translatable("cactusclicker.hudWidget." + id + ".name"),
         Component.translatable("cactusclicker.hudWidget." + id + ".name"));
-    textLine.setState(State.HIDDEN);
   }
 
   @Subscribe

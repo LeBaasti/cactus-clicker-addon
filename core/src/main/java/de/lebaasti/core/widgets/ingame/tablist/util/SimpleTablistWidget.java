@@ -26,7 +26,6 @@ public abstract class SimpleTablistWidget extends TablistHudWidget {
   public void load(TextHudWidgetConfig config) {
     super.load(config);
     textLine = createLine(Component.translatable(translationKey("name")), "");
-    textLine.setState(State.HIDDEN);
     values.clear();
   }
 

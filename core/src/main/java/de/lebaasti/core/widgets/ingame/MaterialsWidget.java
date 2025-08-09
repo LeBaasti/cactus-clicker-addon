@@ -37,7 +37,6 @@ public class MaterialsWidget extends TextHudWidget<TextHudWidgetConfig> {
       TextColorLine line = createLine(
           Component.text(value.name()).color(TextColor.color(value.colorCode)), Component.text(""),
           TextColorLine::new);
-      line.setState(State.HIDDEN);
       textLines.put(value, line);
     }
   }

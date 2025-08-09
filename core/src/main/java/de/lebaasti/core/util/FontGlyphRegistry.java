@@ -66,6 +66,22 @@ public class FontGlyphRegistry {
     return getGroup(group).values();
   }
 
+  // Get all chars in a group, optionally excluding certain subgroups
+  public static Collection<LinkedHashSet<String>> getAllCharsForGroupExcluding(String group, String... excludedSubgroups) {
+    Map<String, LinkedHashSet<String>> groupMap = getGroup(group);
+
+    if (excludedSubgroups == null || excludedSubgroups.length == 0) {
+      return groupMap.values();
+    }
+
+    Set<String> excludedSet = Set.of(excludedSubgroups);
+    return groupMap.entrySet().stream()
+        .filter(entry -> !excludedSet.contains(entry.getKey()))
+        .map(Map.Entry::getValue)
+        .toList();
+  }
+
+
   // Check if any char from any subgroup in group exists in text
   public static boolean containsCharInGroup(String group, String text) {
     return getAllCharsForGroup(group).stream()

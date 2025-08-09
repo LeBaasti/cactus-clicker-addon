@@ -24,7 +24,14 @@
         "name": "Materials"
       },
       "combo_chest_widget": {
-        "name": "Combo Chest"
+        "name": "Combo Chest",
+        "showAsText":{
+          "name": "Show as Text"
+        },
+        "hideDefaultComboChest":{
+          "name": "Hide default",
+          "description": "Decide whether the default combo chest (top left) should be rendered by the game."
+        }
       },
       "power_crystal_widget": {
         "name": "Powercrystals",

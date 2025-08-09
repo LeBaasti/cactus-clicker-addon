@@ -39,7 +39,7 @@ public class PowerCrystalWidget extends TablistHudWidget {
     super.load(config);
     keys.clear();
     values.clear();
-    createLine(Component.translatable(translationKey("name")), Component.text("")).setState(State.HIDDEN);
+    createLine(Component.translatable(translationKey("name")), Component.text(""));
   }
 
   @Override

@@ -1,5 +1,10 @@
 # 🌵 Cactus Clicker Addon
 
+<span style="color:red; font-weight:bold">
+⚠️ Dieses Addon ist <b>nicht</b> offiziell vom PlayLegend-Team.  
+Es bietet lediglich Quality-of-Life-Features.
+</span>
+
 ## 🎮 Über das Projekt
 Dieses Addon wurde speziell für den **Cactus Clicker**-Gamemode des **PlayLegend** Servernetzwerks entwickelt.  
 Es erweitert deine Spielerfahrung in Labymod um nützliche Funktionen und ein verbessertes Gameplay! 🧩
@@ -10,13 +15,12 @@ Es erweitert deine Spielerfahrung in Labymod um nützliche Funktionen und ein ve
 - 🪵 Anzeige der **Materialien-Drops** aus der aktuellen Session (LabyMod -> Widgets)
 - 💎 Machtkristall-Widget (Mit Levelanzeige)
 - ❌ Deaktivieren der Kombo-Kiste-Anzeige
-- 🔥 Anzeige der **aktuellen Kombo**
+- 🔥 Verschiebbare Anzeige der **Combo Chest** (Textanzeige möglich)
 - 😀 Menü zum Einfügen von Emojis
 - 🎯 Verschiebbare Anzeige der Klassen-Fähigkeiten (Tasten)
+- 🧩 Übertragung des Widget-Systems vom Spielmodus (Tablist) in das native Labymod-Widget-System
 
 ## 🛠️ Geplante Features
-- 🧩 Übertragung des Widget-Systems vom Spielmodus (Tablist) in das native Labymod-Widget-System
-- 🔥 Anzeige eines **Countdown**, bis sich die **aktuellen Kombo** zurücksetzt
 - 🗒️ Übersicht aller Statuen, wenn das Menü geöffnet ist
 - 🔄️ Live-Anzeige im Equipment-Editor
 
