@@ -14,6 +14,10 @@
       "comboChestEnabled": {
         "name": "Combo Chest",
         "description": "Whether the combo box is displayed"
+      },
+      "itemFrameEnabled": {
+        "name": "Itemframe",
+        "description": "Whether a frame should be displayed for items that have a forged state"
       }
     },
     "hudWidget": {

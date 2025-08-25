@@ -16,6 +16,8 @@ public class AddonConfiguration extends AddonConfig {
   private final ConfigProperty<Boolean> legendaryAndEpicAnimationEnabled = new ConfigProperty<>(true);
   @SwitchSetting
   private final ConfigProperty<Boolean> comboChestEnabled = new ConfigProperty<>(true);
+  @SwitchSetting
+  private final ConfigProperty<Boolean> itemFrameEnabled = new ConfigProperty<>(true);
 
   @Override
   public ConfigProperty<Boolean> enabled() {
@@ -33,4 +35,9 @@ public class AddonConfiguration extends AddonConfig {
   public ConfigProperty<Boolean> comboChestEnabled() {
     return comboChestEnabled;
   }
+
+  public ConfigProperty<Boolean> itemFrameEnabled() {
+    return itemFrameEnabled;
+  }
+
 }

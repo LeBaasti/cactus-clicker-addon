@@ -2,6 +2,7 @@ package de.lebaasti.core;
 
 import de.lebaasti.core.feature.DisableComboChestFeature;
 import de.lebaasti.core.feature.DisableDropAnimationFeature;
+import de.lebaasti.core.feature.ItemFrameFeature;
 import de.lebaasti.core.feature.emoji.EmojiActivity;
 import de.lebaasti.core.generated.DefaultReferenceStorage;
 import de.lebaasti.core.listener.ChatMessageSendListener;
@@ -46,12 +47,14 @@ public class CactusClickerAddon extends LabyAddon<AddonConfiguration> {
     this.registerListener(new ResourceReloadListener(this));
     this.registerListener(new DisableDropAnimationFeature(this));
     this.registerListener(new DisableComboChestFeature(this));
+    this.registerListener(new ItemFrameFeature(this));
 
     TablistEventDispatcher dispatcher = new TablistEventDispatcher(this);
     this.registerListener(dispatcher);
 
     labyAPI().hudWidgetRegistry().register(new PowerCrystalWidget(dispatcher));
     labyAPI().hudWidgetRegistry().register(new AnvilWidet(dispatcher));
+
   }
 
   @Override
