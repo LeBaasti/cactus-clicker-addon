@@ -19,10 +19,14 @@ Es erweitert deine Spielerfahrung in Labymod um nützliche Funktionen und ein ve
 - 😀 Menü zum Einfügen von Emojis
 - 🎯 Verschiebbare Anzeige der Klassen-Fähigkeiten (Tasten)
 - 🧩 Übertragung des Widget-Systems vom Spielmodus (Tablist) in das native Labymod-Widget-System
+- 🌈 Items mit einem **Schmiedezustand** erhalten einen Rahmen
+  - **Sterngeschmiedet**: animierter Rainbow-Rahmen
+  - Andere Zustände: einfarbiger Rahmen passend zum Zustand
 
 ## 🛠️ Geplante Features
 - 🗒️ Übersicht aller Statuen, wenn das Menü geöffnet ist
 - 🔄️ Live-Anzeige im Equipment-Editor
+- 🌊 Anzeige der **Welle**, bei der man eine Essenz am besten bekommt
 
 ## 💡 Voraussetzungen
 - 🧱 Minecraft mit Labymod (Version 1.21.5)
