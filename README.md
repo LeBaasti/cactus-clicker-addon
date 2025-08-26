@@ -22,6 +22,7 @@ Es erweitert deine Spielerfahrung in Labymod um nützliche Funktionen und ein ve
 - 🌈 Items mit einem **Schmiedezustand** erhalten einen Rahmen
   - **Sterngeschmiedet**: animierter Rainbow-Rahmen
   - Andere Zustände: einfarbiger Rahmen passend zum Zustand
+- 💠 Anzeige der **Essenz** im Machtkristalle-Upgrade-Menü
 
 ## 🛠️ Geplante Features
 - 🗒️ Übersicht aller Statuen, wenn das Menü geöffnet ist
