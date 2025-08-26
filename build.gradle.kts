@@ -23,10 +23,10 @@ labyMod {
     }
 
     addonInfo {
-        namespace = "cactusclicker"
-        displayName = "Cactus Clicker Addon"
+        namespace = "ccaddon"
+        displayName = "CC Addon"
         author = "LeBaasti"
-        description = "Labymod addon for cactus clicker game mode of Playlegend server network."
+        description = "Labymod addon for cactus clicker game mode of playlegend server network. (This is not an official mod from the Playlegend team.)"
         minecraftVersion = "1.21.5"
         version = rootProject.version.toString()
     }

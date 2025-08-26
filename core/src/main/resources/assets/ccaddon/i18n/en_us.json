@@ -1,5 +1,5 @@
 {
-  "cactusclicker": {
+  "ccaddon": {
     "settings": {
       "enabled": {
         "name": "Enabled"
@@ -55,8 +55,8 @@
       }
     },
     "hudWidgetCategory": {
-      "cactus_clicker_category": {
-        "name": "Cactus Clicker",
+      "ccaddon_category": {
+        "name": "CC Addon",
         "description": "Additional information Widgets"
       }
     }

@@ -1,6 +1,6 @@
 package de.lebaasti.core.event;
 
-import de.lebaasti.context.GuiRenderContext;
+import de.lebaasti.core.context.GuiRenderContext;
 import net.labymod.api.event.Event;
 
 public class RenderItemDecorationsEvent implements Event {

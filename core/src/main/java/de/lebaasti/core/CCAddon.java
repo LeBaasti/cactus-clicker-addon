@@ -2,11 +2,11 @@ package de.lebaasti.core;
 
 import de.lebaasti.core.feature.DisableComboChestFeature;
 import de.lebaasti.core.feature.DisableDropAnimationFeature;
+import de.lebaasti.core.feature.EssenzeWaveFeature;
 import de.lebaasti.core.feature.ItemFrameFeature;
+import de.lebaasti.core.feature.StarForgedSoundFeature;
 import de.lebaasti.core.feature.emoji.EmojiActivity;
-import de.lebaasti.core.generated.DefaultReferenceStorage;
-import de.lebaasti.core.listener.ChatMessageSendListener;
-import de.lebaasti.core.listener.GameTickListener;
+import de.lebaasti.core.feature.emoji.ConvertEmojiInChatFeature;
 import de.lebaasti.core.listener.ResourceReloadListener;
 import de.lebaasti.core.widgets.ingame.AbilitiesWidget;
 import de.lebaasti.core.widgets.ingame.ComboChestWidget;
@@ -14,6 +14,7 @@ import de.lebaasti.core.widgets.ingame.MaterialsWidget;
 import de.lebaasti.core.widgets.ingame.tablist.AnvilWidet;
 import de.lebaasti.core.widgets.ingame.tablist.PowerCrystalWidget;
 import de.lebaasti.core.widgets.ingame.tablist.util.TablistEventDispatcher;
+import net.labymod.api.Laby;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.gui.hud.binding.category.HudWidgetCategory;
 import net.labymod.api.client.gui.hud.hudwidget.HudWidget;
@@ -21,13 +22,19 @@ import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.client.gui.screen.widget.widgets.activity.chat.ChatButtonWidget;
 import net.labymod.api.client.resources.ResourceLocation;
 import net.labymod.api.models.addon.annotation.AddonMain;
+import net.labymod.api.revision.SimpleRevision;
+import net.labymod.api.util.version.SemanticVersion;
 
 @AddonMain
-public class CactusClickerAddon extends LabyAddon<AddonConfiguration> {
+public class CCAddon extends LabyAddon<AddonConfiguration> {
 
   private HudWidgetCategory widgetCategory;
+  private CCServer server;
 
-  private InventoryReader inventoryReader;
+  @Override
+  protected void preConfigurationLoad() {
+    Laby.references().revisionRegistry().register(new SimpleRevision("ccaddon", new SemanticVersion("1.0.5"), "2025-06-26"));
+  }
 
   @Override
   protected void enable() {
@@ -35,19 +42,18 @@ public class CactusClickerAddon extends LabyAddon<AddonConfiguration> {
 
     labyAPI().chatProvider().chatInputService().register(getEmojiWidget());
 
-    labyAPI().hudWidgetRegistry().categoryRegistry().register(this.widgetCategory = new HudWidgetCategory("cactus_clicker_category"));
+    labyAPI().hudWidgetRegistry().categoryRegistry().register(this.widgetCategory = new HudWidgetCategory("ccaddon _category"));
     registerHudWidgetWithListener(new MaterialsWidget(this));
     registerHudWidgetWithListener(new ComboChestWidget(this));
     registerHudWidgetWithListener(new AbilitiesWidget(this));
 
-    inventoryReader = ((DefaultReferenceStorage) this.referenceStorageAccessor()).inventoryReader();
-
-    this.registerListener(new ChatMessageSendListener());
-    this.registerListener(new GameTickListener(this));
+    this.registerListener(new ConvertEmojiInChatFeature());
     this.registerListener(new ResourceReloadListener(this));
     this.registerListener(new DisableDropAnimationFeature(this));
     this.registerListener(new DisableComboChestFeature(this));
     this.registerListener(new ItemFrameFeature(this));
+    this.registerListener(new StarForgedSoundFeature(this));
+    this.registerListener(new EssenzeWaveFeature(this));
 
     TablistEventDispatcher dispatcher = new TablistEventDispatcher(this);
     this.registerListener(dispatcher);
@@ -55,6 +61,7 @@ public class CactusClickerAddon extends LabyAddon<AddonConfiguration> {
     labyAPI().hudWidgetRegistry().register(new PowerCrystalWidget(dispatcher));
     labyAPI().hudWidgetRegistry().register(new AnvilWidet(dispatcher));
 
+    labyAPI().serverController().registerServer(server = new CCServer(this));
   }
 
   @Override
@@ -62,8 +69,8 @@ public class CactusClickerAddon extends LabyAddon<AddonConfiguration> {
     return AddonConfiguration.class;
   }
 
-  public InventoryReader inventoryReader() {
-    return inventoryReader;
+  public CCServer server() {
+    return server;
   }
 
   public HudWidgetCategory widgetCategory() {
@@ -76,7 +83,7 @@ public class CactusClickerAddon extends LabyAddon<AddonConfiguration> {
   }
 
   public static ChatButtonWidget getEmojiWidget() {
-    ResourceLocation resourceLocation = ResourceLocation.create("cactusclicker", "buttons/emoji_button.png");
+    ResourceLocation resourceLocation = ResourceLocation.create("ccaddon", "buttons/emoji_button.png");
     return ChatButtonWidget.icon("emojis", Icon.texture(resourceLocation), EmojiActivity::new);
   }
 }

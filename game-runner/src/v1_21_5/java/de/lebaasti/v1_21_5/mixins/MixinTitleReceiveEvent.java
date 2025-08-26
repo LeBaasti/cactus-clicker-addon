@@ -21,7 +21,7 @@ public abstract class MixinTitleReceiveEvent {
   @Shadow private int titleFadeOutTime;
 
   @Inject(method = "setTitle", at = @At("HEAD"), cancellable = true)
-  private void fireTitleReceiveEvent(Component tag, CallbackInfo callbackInfo) {
+  private void onSetTitle(Component tag, CallbackInfo callbackInfo) {
     TitleReceiveEvent event = new TitleReceiveEvent(
         new Title(net.labymod.api.client.component.Component.text(tag),
             net.labymod.api.client.component.Component.text(subtitle), titleFadeInTime,

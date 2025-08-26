@@ -1,8 +1,7 @@
 package de.lebaasti.core.widgets.ingame.tablist.util;
 
-import de.lebaasti.core.CactusClickerAddon;
+import de.lebaasti.core.CCAddon;
 import de.lebaasti.core.util.CactusClickerPlayer;
-import net.labymod.api.client.component.TextComponent;
 import net.labymod.api.client.network.NetworkPlayerInfo;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.network.playerinfo.PlayerInfoAddEvent;
@@ -15,11 +14,11 @@ import java.util.function.Consumer;
 
 public class TablistEventDispatcher {
 
-  private final CactusClickerAddon addon;
+  private final CCAddon addon;
   private final List<Consumer<NetworkPlayerInfo>> listeners = new ArrayList<>();
   private final List<NetworkPlayerInfo> playerList = new ArrayList<>();
 
-  public TablistEventDispatcher(CactusClickerAddon addon) {
+  public TablistEventDispatcher(CCAddon addon) {
     this.addon = addon;
   }
 
@@ -33,6 +32,7 @@ public class TablistEventDispatcher {
 
   @Subscribe
   public void onPlayerInfoAdd(PlayerInfoAddEvent event) {
+    if(!addon.server().isConnected()) return;
     NetworkPlayerInfo networkPlayerInfo = event.playerInfo();
     if ((CactusClickerPlayer.isInAincraft() || CactusClickerPlayer.isInFabric()) && networkPlayerInfo.isListed()) {
       if(!playerList.contains(networkPlayerInfo)) playerList.add(networkPlayerInfo);
@@ -41,6 +41,7 @@ public class TablistEventDispatcher {
 
   @Subscribe
   public void onSubServerSwitch(SubServerSwitchEvent event) {
+    if(!addon.server().isConnected()) return;
     playerList.clear();
     for (Consumer<NetworkPlayerInfo> listener : listeners) {
       listener.accept(null);
@@ -66,7 +67,7 @@ public class TablistEventDispatcher {
     }
   }
 
-  public CactusClickerAddon addon() {
+  public CCAddon addon() {
     return addon;
   }
 

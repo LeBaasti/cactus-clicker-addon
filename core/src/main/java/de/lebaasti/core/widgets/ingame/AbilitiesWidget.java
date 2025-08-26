@@ -1,14 +1,12 @@
 package de.lebaasti.core.widgets.ingame;
 
-import de.lebaasti.core.CactusClickerAddon;
+import de.lebaasti.core.CCAddon;
 import de.lebaasti.core.event.BossbarRenderEvent;
 import de.lebaasti.core.util.CactusClickerPlayer;
 import de.lebaasti.core.util.FontGlyphRegistry;
 import de.lebaasti.core.widgets.ingame.util.OnlyValueHudWidgetConfig;
 import net.labymod.api.client.component.Component;
-import net.labymod.api.client.gui.hud.hudwidget.text.Formatting;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
-import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine.State;
 import net.labymod.api.event.Subscribe;
@@ -19,9 +17,9 @@ import java.util.stream.Collectors;
 public class AbilitiesWidget extends TextHudWidget<OnlyValueHudWidgetConfig> {
 
   private TextLine textLine;
-  private CactusClickerAddon addon;
+  private final CCAddon addon;
 
-  public AbilitiesWidget(CactusClickerAddon addon) {
+  public AbilitiesWidget(CCAddon addon) {
     super("abilities_widget", OnlyValueHudWidgetConfig.class);
     this.addon = addon;
     this.bindCategory(addon.widgetCategory());
@@ -34,9 +32,14 @@ public class AbilitiesWidget extends TextHudWidget<OnlyValueHudWidgetConfig> {
         Component.translatable("cactusclicker.hudWidget." + id + ".name"));
   }
 
+  @Override
+  public boolean isVisibleInGame() {
+    return addon.server().isConnected() && super.isVisibleInGame();
+  }
+
   @Subscribe
   public void onBossbarRender(BossbarRenderEvent event) {
-    if(!isEnabled()) return;
+    if(!addon.server().isConnected()|| !isEnabled()) return;
     String componentText = event.getComponent().toString();
     String value = extractAbilitySymbols(componentText);
     if(!value.isEmpty()) {
@@ -47,7 +50,7 @@ public class AbilitiesWidget extends TextHudWidget<OnlyValueHudWidgetConfig> {
 
   @Subscribe
   public void onDimensionChange(DimensionChangeEvent event) {
-    if(!isEnabled()) return;
+    if(!addon.server().isConnected() || !isEnabled()) return;
     if(CactusClickerPlayer.isInAincraft(event.toDimension()) || CactusClickerPlayer.isInFabric(event.toDimension())) {
       textLine.setState(State.VISIBLE);
     } else {

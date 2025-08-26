@@ -1,4 +1,4 @@
-rootProject.name = "cactusclicker"
+rootProject.name = "ccaddon"
 
 pluginManagement {
     val labyGradlePluginVersion = "0.5.8"

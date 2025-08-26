@@ -1,6 +1,6 @@
 package de.lebaasti.core.widgets.ingame;
 
-import de.lebaasti.core.CactusClickerAddon;
+import de.lebaasti.core.CCAddon;
 import de.lebaasti.core.util.CactusClickerPlayer;
 import de.lebaasti.core.util.TextColorLine;
 import net.labymod.api.client.component.Component;
@@ -21,10 +21,13 @@ import java.util.Map;
 
 public class MaterialsWidget extends TextHudWidget<TextHudWidgetConfig> {
 
+  private final CCAddon addon;
+
   private final EnumMap<MaterialRarity, TextColorLine> textLines = new EnumMap<>(MaterialRarity.class);
 
-  public MaterialsWidget(CactusClickerAddon addon) {
+  public MaterialsWidget(CCAddon addon) {
     super("materials_widget");
+    this.addon = addon;
     this.bindCategory(addon.widgetCategory());
     this.setIcon(Icon.texture(ResourceLocation.create("minecraft", "textures/item/name_tag.png")));
   }
@@ -41,9 +44,14 @@ public class MaterialsWidget extends TextHudWidget<TextHudWidgetConfig> {
     }
   }
 
+  @Override
+  public boolean isVisibleInGame() {
+    return addon.server().isConnected() && super.isVisibleInGame();
+  }
+
   @Subscribe
   public void onActionBarReceive(ActionBarReceiveEvent event) {
-    if(!isEnabled()) return;
+    if(!addon.server().isConnected() || !isEnabled()) return;
     if (event.phase() != Phase.PRE) {
       return;
     }
@@ -66,7 +74,7 @@ public class MaterialsWidget extends TextHudWidget<TextHudWidgetConfig> {
 
   @Subscribe
   public void onSubServerSwitch(SubServerSwitchEvent event) {
-    if(!isEnabled()) return;
+    if(!addon.server().isConnected() || !isEnabled()) return;
     if(!CactusClickerPlayer.isInAincraft()) {
       for (Map.Entry<MaterialRarity, TextColorLine> entry : textLines.entrySet()) {
         entry.getValue().setState(State.HIDDEN);

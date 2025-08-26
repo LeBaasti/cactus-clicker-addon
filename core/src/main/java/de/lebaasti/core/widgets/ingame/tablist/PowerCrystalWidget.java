@@ -8,7 +8,6 @@ import net.labymod.api.client.component.TextComponent;
 import net.labymod.api.client.component.format.TextColor;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
-import net.labymod.api.client.gui.hud.hudwidget.text.TextLine.State;
 import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.client.network.NetworkPlayerInfo;
 import net.labymod.api.client.resources.ResourceLocation;

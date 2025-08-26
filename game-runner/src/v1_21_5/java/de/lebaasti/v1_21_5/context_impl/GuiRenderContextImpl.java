@@ -1,6 +1,6 @@
 package de.lebaasti.v1_21_5.context_impl;
 
-import de.lebaasti.context.GuiRenderContext;
+import de.lebaasti.core.context.GuiRenderContext;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.gui.GuiGraphics;
 

@@ -1,6 +1,6 @@
 package de.lebaasti.core.feature;
 
-import de.lebaasti.core.CactusClickerAddon;
+import de.lebaasti.core.CCAddon;
 import de.lebaasti.core.event.TitleReceiveEvent;
 import de.lebaasti.core.util.FontGlyphRegistry;
 import net.labymod.api.client.chat.Title;
@@ -9,15 +9,15 @@ import net.labymod.api.event.Subscribe;
 
 public class DisableDropAnimationFeature {
 
-  private final CactusClickerAddon addon;
+  private final CCAddon addon;
 
-  public DisableDropAnimationFeature(CactusClickerAddon addon) {
+  public DisableDropAnimationFeature(CCAddon addon) {
     this.addon = addon;
   }
 
   @Subscribe
   public void onTitleReceive(TitleReceiveEvent event) {
-    if(addon.configuration().legendaryAndEpicAnimationEnabled().get()) {
+    if(!addon.server().isConnected() || addon.configuration().legendaryAndEpicAnimationEnabled().get()) {
       return;
     }
     Title title = event.getTitle();

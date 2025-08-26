@@ -1,6 +1,6 @@
 package de.lebaasti.core.widgets.ingame;
 
-import de.lebaasti.core.CactusClickerAddon;
+import de.lebaasti.core.CCAddon;
 import de.lebaasti.core.event.BossbarRenderEvent;
 import de.lebaasti.core.util.CactusClickerPlayer;
 import de.lebaasti.core.util.FontGlyphRegistry;
@@ -38,9 +38,9 @@ public class ComboChestWidget extends TextHudWidget<ComboChestHudWidgetConfig> {
   private long comboChestNumbersPos = NUMBER_POSITIONS[0];
 
   private TextLine textLine;
-  private final CactusClickerAddon addon;
+  private final CCAddon addon;
 
-  public ComboChestWidget(CactusClickerAddon addon) {
+  public ComboChestWidget(CCAddon addon) {
     super("combo_chest_widget", ComboChestHudWidgetConfig.class);
     this.addon = addon;
     bindCategory(addon.widgetCategory());
@@ -52,6 +52,7 @@ public class ComboChestWidget extends TextHudWidget<ComboChestHudWidgetConfig> {
     super.load(config);
     textLine = createLine(Component.translatable("cactusclicker.hudWidget." + id + ".name"), "Combo Chest");
   }
+
 
   @Override
   public void render(Stack stack, MutableMouse mouse, float partialTicks, boolean isEditorContext, HudSize size) {
@@ -72,12 +73,12 @@ public class ComboChestWidget extends TextHudWidget<ComboChestHudWidgetConfig> {
 
   @Override
   public boolean isVisibleInGame() {
-    return CactusClickerPlayer.isInAincraft();
+    return addon.server().isConnected() && CactusClickerPlayer.isInAincraft();
   }
 
   @Subscribe
   public void onBossbarRender(BossbarRenderEvent event) {
-    if (!isEnabled()) return;
+    if (!addon.server().isConnected() || !isEnabled()) return;
 
     String componentText = event.getComponent().toString();
     if (!FontGlyphRegistry.containsCharInGroup("combo_chest", componentText)) return;

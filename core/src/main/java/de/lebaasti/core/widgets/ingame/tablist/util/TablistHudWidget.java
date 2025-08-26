@@ -32,6 +32,11 @@ public abstract class TablistHudWidget extends TextHudWidget<TextHudWidgetConfig
     });
   }
 
+  @Override
+  public boolean isVisibleInGame() {
+    return dispatcher.addon().server().isConnected() && super.isVisibleInGame();
+  }
+
   protected String translationKey(String key) {
     return String.format(
         Locale.ROOT, "%s.hudWidget.%s.%s",

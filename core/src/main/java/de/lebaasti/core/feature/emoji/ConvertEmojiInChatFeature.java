@@ -1,10 +1,9 @@
-package de.lebaasti.core.listener;
+package de.lebaasti.core.feature.emoji;
 
-import de.lebaasti.core.feature.emoji.EmojiRegistry;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.chat.ChatMessageSendEvent;
 
-public class ChatMessageSendListener {
+public class ConvertEmojiInChatFeature {
 
   @Subscribe
   public void onChatMessageSend(ChatMessageSendEvent event) {

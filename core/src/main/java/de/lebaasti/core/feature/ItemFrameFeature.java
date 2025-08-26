@@ -1,7 +1,7 @@
 package de.lebaasti.core.feature;
 
-import de.lebaasti.context.GuiRenderContext;
-import de.lebaasti.core.CactusClickerAddon;
+import de.lebaasti.core.context.GuiRenderContext;
+import de.lebaasti.core.CCAddon;
 import de.lebaasti.core.event.RenderItemDecorationsEvent;
 import net.labymod.api.event.Subscribe;
 import java.awt.*;
@@ -9,9 +9,9 @@ import java.util.Map;
 
 public class ItemFrameFeature {
 
-  private final CactusClickerAddon addon;
+  private final CCAddon addon;
 
-  public ItemFrameFeature(CactusClickerAddon addon) {
+  public ItemFrameFeature(CCAddon addon) {
     this.addon = addon;
   }
 
@@ -27,7 +27,7 @@ public class ItemFrameFeature {
 
   @Subscribe
   public void onRenderItemDecorations(RenderItemDecorationsEvent event) {
-    if(!addon.configuration().itemFrameEnabled().get()) {
+    if(!addon.server().isConnected() || !addon.configuration().itemFrameEnabled().get()) {
       return;
     }
 

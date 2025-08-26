@@ -2,7 +2,7 @@
   "misc.starforged": {
     "sounds": [
       {
-        "name": "cactusclicker:misc/starforged"
+        "name": "ccaddon:misc/starforged"
       }
     ]
   }
