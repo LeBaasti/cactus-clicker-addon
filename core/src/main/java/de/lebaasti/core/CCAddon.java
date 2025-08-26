@@ -42,7 +42,7 @@ public class CCAddon extends LabyAddon<AddonConfiguration> {
 
     labyAPI().chatProvider().chatInputService().register(getEmojiWidget());
 
-    labyAPI().hudWidgetRegistry().categoryRegistry().register(this.widgetCategory = new HudWidgetCategory("ccaddon _category"));
+    labyAPI().hudWidgetRegistry().categoryRegistry().register(this.widgetCategory = new HudWidgetCategory("ccaddon_category"));
     registerHudWidgetWithListener(new MaterialsWidget(this));
     registerHudWidgetWithListener(new ComboChestWidget(this));
     registerHudWidgetWithListener(new AbilitiesWidget(this));
