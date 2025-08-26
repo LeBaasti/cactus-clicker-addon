@@ -1,4 +1,4 @@
-# 🌵 Cactus Clicker Addon
+# 🌵 CC Addon
 
 <span style="color:red; font-weight:bold">
 ⚠️ Dieses Addon ist <b>nicht</b> offiziell vom PlayLegend-Team.  
