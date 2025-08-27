@@ -28,6 +28,8 @@ import net.labymod.api.util.version.SemanticVersion;
 @AddonMain
 public class CCAddon extends LabyAddon<AddonConfiguration> {
 
+  private static CCAddon instance;
+
   private HudWidgetCategory widgetCategory;
   private CCServer server;
 
@@ -39,6 +41,7 @@ public class CCAddon extends LabyAddon<AddonConfiguration> {
   @Override
   protected void enable() {
     this.registerSettingCategory();
+    instance = this;
 
     labyAPI().chatProvider().chatInputService().register(getEmojiWidget());
 
@@ -69,8 +72,16 @@ public class CCAddon extends LabyAddon<AddonConfiguration> {
     return AddonConfiguration.class;
   }
 
+  public static CCAddon getInstance() {
+    return instance;
+  }
+
   public CCServer server() {
     return server;
+  }
+
+  public boolean isEnabledAndConnected() {
+    return configuration().enabled().get() && server.isConnected();
   }
 
   public HudWidgetCategory widgetCategory() {

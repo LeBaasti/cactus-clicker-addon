@@ -1,6 +1,7 @@
 package de.lebaasti.v1_21_5.mixins;
 
 
+import de.lebaasti.core.CCAddon;
 import de.lebaasti.core.event.BossbarRenderEvent;
 import net.labymod.api.Laby;
 import net.minecraft.client.Minecraft;
@@ -38,6 +39,8 @@ public abstract class MixinBossHealthOverlay {
 
   @Inject(method = "render", at = @At(value = "HEAD"), cancellable = true)
   private void onRender(GuiGraphics $$0, CallbackInfo callbackInfo) {
+    if(!CCAddon.getInstance().isEnabledAndConnected()) return;
+
     if (!this.events.isEmpty()) {
       ProfilerFiller $$1 = Profiler.get();
       $$1.push("bossHealth");

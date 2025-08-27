@@ -1,5 +1,6 @@
 package de.lebaasti.v1_21_5.mixins;
 
+import de.lebaasti.core.CCAddon;
 import de.lebaasti.core.event.TitleReceiveEvent;
 import net.labymod.api.Laby;
 import net.labymod.api.client.chat.Title;
@@ -22,6 +23,8 @@ public abstract class MixinTitleReceiveEvent {
 
   @Inject(method = "setTitle", at = @At("HEAD"), cancellable = true)
   private void onSetTitle(Component tag, CallbackInfo callbackInfo) {
+    if(!CCAddon.getInstance().isEnabledAndConnected()) return;
+
     TitleReceiveEvent event = new TitleReceiveEvent(
         new Title(net.labymod.api.client.component.Component.text(tag),
             net.labymod.api.client.component.Component.text(subtitle), titleFadeInTime,

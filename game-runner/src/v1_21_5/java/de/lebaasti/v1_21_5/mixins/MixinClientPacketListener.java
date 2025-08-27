@@ -1,17 +1,15 @@
 package de.lebaasti.v1_21_5.mixins;
 
+import de.lebaasti.core.CCAddon;
 import de.lebaasti.core.util.inventory.InventoryTracker;
 import de.lebaasti.core.util.inventory.InventoryItem;
 import de.lebaasti.v1_21_5.util_impl.InventoryItemImpl;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundContainerClosePacket;
 import net.minecraft.network.protocol.game.ClientboundContainerSetContentPacket;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.ItemLore;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,11 +24,13 @@ public class MixinClientPacketListener {
 
   @Inject(method = "handleOpenScreen", at = @At("TAIL"))
   private void onOpenScreen(ClientboundOpenScreenPacket packet, CallbackInfo callbackInfo) {
+    if(!CCAddon.getInstance().isEnabledAndConnected()) return;
     tracker.openContainer(packet.getTitle().getString());
   }
 
   @Inject(method = "handleContainerContent", at = @At("TAIL"))
   private void onContainerContent(ClientboundContainerSetContentPacket packet, CallbackInfo callbackInfo) {
+    if(!CCAddon.getInstance().isEnabledAndConnected()) return;
     List<InventoryItem> items = packet.items().stream()
         .map(this::toInventoryItem) // convert ItemStack to InventoryItem
         .toList();
@@ -39,11 +39,13 @@ public class MixinClientPacketListener {
 
   @Inject(method = "handleContainerSetSlot", at = @At("TAIL"))
   private void onSlotUpdate(ClientboundContainerSetSlotPacket packet, CallbackInfo callbackInfo) {
+    if(!CCAddon.getInstance().isEnabledAndConnected()) return;
     tracker.updateSlot(packet.getSlot(), toInventoryItem(packet.getItem()));
   }
 
   @Inject(method = "handleContainerClose", at = @At("TAIL"))
   private void onContainerClose(ClientboundContainerClosePacket packet, CallbackInfo callbackInfo) {
+    if(!CCAddon.getInstance().isEnabledAndConnected()) return;
     tracker.closeContainer();
   }
 

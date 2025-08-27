@@ -15,7 +15,8 @@ public class FontGlyphRegistry {
       "cactusclicker_drop_animation",
       "chat",
       "combo_chest",
-      "cactusclicker_classes_icons"
+      "cactusclicker_classes_icons",
+      "equipment"
   );
 
   public static void reload() {
